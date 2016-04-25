@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/manual_reminder_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textColor="@color/colorBlack"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="@string/manual_reminder_title"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/reminder_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/colorBlack"
+        android:layout_below="@+id/manual_reminder_title"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="@string/reminder_des"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/reminder_apply"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reminder_des"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="Apply"
+        android:textColor="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/reminder_cancel"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reminder_des"
+        android:layout_toLeftOf="@+id/reminder_apply"
+        android:layout_toStartOf="@+id/reminder_apply"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="Cancel"
+        android:textColor="@color/colorPrimary" />
+</RelativeLayout>

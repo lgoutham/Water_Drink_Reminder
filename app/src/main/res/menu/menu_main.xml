@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Drink_Water="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.gautham.d.MainActivity">
+    <item
+        android:id="@+id/action_notification"
+        android:title="@string/action_notification"
+        android:icon="@mipmap/ic_action_notification"
+        Drink_Water:showAsAction="always" />
+    <item
+        android:id="@+id/action_calendar"
+        android:title="@string/action_calendar"
+        android:icon="@mipmap/ic_action_calendar"
+        Drink_Water:showAsAction="always" />
+    <item
+        android:id="@+id/action_weight"
+        android:icon="@mipmap/ic_action_weight"
+        android:title="@string/action_weight"
+        Drink_Water:showAsAction="always" />
+
+</menu>

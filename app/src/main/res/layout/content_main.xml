@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.gautham.dr.main.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rlayout"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:background="#FFFFFF"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:id="@+id/drink_target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:paddingBottom="10dp"
+                android:text="@string/drink_target"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"></TextView>
+
+            <TextView
+                android:id="@+id/target_xx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/target_yy"
+                android:text="@string/target_xx"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/target_yy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/drink_target"
+                android:layout_toLeftOf="@+id/water_settings"
+                android:paddingRight="10dp"
+                android:text="@string/target_yy"
+                android:textColor="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/water_settings"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:background="@mipmap/ic_edit"
+                android:paddingTop="16dp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/CustomProgressBarHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/drink_target"
+                android:layout_toLeftOf="@+id/water_settings"
+                android:paddingRight="10dp"
+                android:progressBackgroundTint="@color/colorBackground"
+                android:progressTint="@color/colorPrimary" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/bottle_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:alpha="0.8"
+        android:src="@mipmap/ic_drink_water"
+        app:backgroundTint="@color/cardview_light_background" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="@dimen/fab_margin"
+        android:alpha="0.7"
+        android:src="@android:drawable/ic_input_add"
+        android:tint="@color/colorPrimaryDark" />
+
+</android.support.design.widget.CoordinatorLayout>

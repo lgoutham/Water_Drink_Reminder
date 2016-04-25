@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/action_calender"
+    android:minWidth="200dp"
+    android:background="@color/colorBackground"
+    android:orientation="vertical" >
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/today"
+        android:gravity="left"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        style="@android:style/Widget.Holo.Button.Borderless"
+        android:textColor="@color/colorBlack"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:id="@+id/today" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:gravity="left"
+        style="@android:style/Widget.Holo.Button.Borderless"
+        android:textColor="@color/colorBlack"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/yesterday"
+        android:id="@+id/yesterday" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:gravity="left"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        style="@android:style/Widget.Holo.Button.Borderless"
+        android:textColor="@color/colorBlack"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/custom"
+        android:id="@+id/custom_date" />
+</LinearLayout>

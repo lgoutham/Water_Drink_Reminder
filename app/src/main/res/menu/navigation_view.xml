@@ -1,0 +1,43 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/normal"
+        android:checkableBehavior="single"
+        >
+        <item
+            android:id="@+id/drink_water"
+            android:icon="@mipmap/ic_drink_water"
+            android:title="@string/drink_water" />
+
+        <item
+            android:id="@+id/drink_log"
+            android:icon="@mipmap/ic_drink_log"
+            android:title="@string/drink_log" />
+
+        <item
+            android:id="@+id/water_chart"
+            android:icon="@mipmap/ic_water_chart"
+            android:title="@string/water_chart" />
+        <item
+            android:id="@+id/weight_report"
+            android:icon="@mipmap/ic_weight_report"
+            android:title="@string/weight_report" />
+    </group>
+    <group
+        android:id="@+id/additional"
+        android:checkableBehavior="single">
+    <item
+        android:id="@+id/reminder"
+        android:icon="@mipmap/ic_drawer_notification"
+        android:title="@string/reminder" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@mipmap/ic_drawer_settings"
+        android:title="@string/action_settings" />
+
+    <item
+        android:id="@+id/remove_ads"
+        android:icon="@mipmap/ic_remove_ads"
+        android:title="@string/remove_ads" />
+    </group>
+</menu>

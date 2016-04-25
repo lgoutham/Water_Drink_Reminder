@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">Water Drink Reminder</string>
+    <string name="action_settings">Settings</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="drink_water">Drink water</string>
+    <string name="drink_log">Drink Log</string>
+    <string name="water_chart">Water Chart</string>
+    <string name="weight_report">Weight Report</string>
+    <string name="reminder">Reminder</string>
+    <string name="remove_ads">Remove Ads</string>
+    <string name="action_calendar">Calendar</string>
+    <string name="action_notification">Reminder</string>
+    <string name="action_weight">Weight</string>
+    <string name="drink_target">DRINK TARGET</string>
+    <string name="target_xx">XX</string>
+    <string name="target_yy">/YY</string>
+    <string name="reminder_mode">Reminder Mode</string>
+    <string name="reminder_mode_description">Reminder Mode Description</string>
+    <string name="reminder_type">Reminder Type</string>
+    <string name="auto_reminder">Auto Reminder</string>
+    <string name="manual_reminder">Manually set reminders</string>
+    <string name="other">Other</string>
+    <string name="choose_unit">Choose Unit</string>
+    <string name="ok">Save</string>
+    <string name="banner_ad_unit_id">ca-app-pub-9450992144948271/4116880942</string>
+    <string name="unit">Kg/Lbs</string>
+    <string name="enter_weight">Enter weight</string>
+    <string name="tv_unit">Choose Unit</string>
+    <string name="tv_weight_unit">Select your weight unit</string>
+    <string name="lbs">lbs</string>
+    <string name="kg">Kg</string>
+    <string name="tv_capacity_unit">Select your capacity unit</string>
+    <string name="oz">oz</string>
+    <string name="ml">ml</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="custom">Custom Date</string>
+    <string-array name="settings_array">
+        <item>Reminder</item>
+        <item>Customize cup Size</item>
+        <item>weight &amp; Goal</item>
+        <item>Units &amp; Format</item>
+    </string-array>
+    <string-array name="dates">
+        <item>Yesterday</item>
+        <item>Today</item>
+        <item>Custom Date</item>
+    </string-array>
+    <string-array name="water_settings_array">
+        <item>Weight</item>
+        <item>Adjustment</item>
+        <item>Weather</item>
+        <item>Sports</item>
+        <item>Total</item>
+    </string-array>
+    <string-array name="other_settings">
+        <item>Vibration</item>
+        <item>LED</item>
+        <item>Reminder Sound</item>
+        <item>Reminder Volume</item>
+    </string-array>
+    <string-array name="sounds_array">
+        <item>Sound classic</item>
+        <item>Sound classic short</item>
+        <item>Sound style</item>
+    </string-array>
+    <string name="manual_reminder_title">Manually set reminders</string>
+    <string name="reminder_des">Reminder will remind you on fixed times</string>
+    <string name="other_settings">Other Settings</string>
+</resources>

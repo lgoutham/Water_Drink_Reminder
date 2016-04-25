@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/volume_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:text="Reminder Volume"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <SeekBar
+        android:id="@+id/volume_seekbar"
+        style="@style/CustomSeekBarHorizontal"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/volume_title"
+        android:progressBackgroundTint="#FFFFFF"
+        android:progressTint="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/volume_cancel"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/volume_seekbar"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:layout_toLeftOf="@+id/volume_ok"
+        android:text="Cancel"
+        android:textColor="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/volume_ok"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/volume_seekbar"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:text="Ok"
+        android:textColor="@color/colorPrimary" />
+
+
+</RelativeLayout>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/activity_horizontal_margin"
+    android:gravity="center"
+    android:minWidth="250dp"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialog_tite1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/colorBlack" />
+
+    <TextView
+        android:id="@+id/tv_weight_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="@string/tv_weight_unit"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/colorBlack" />
+
+    <RadioGroup
+        android:id="@+id/rg_weight_unit"
+        android:layout_width="wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/lbs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:buttonTint="@color/compound_button_color"
+            android:text="@string/lbs"
+            android:textColor="@color/colorBlack" />
+
+        <RadioButton
+            android:id="@+id/kg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:buttonTint="@color/compound_button_color"
+            android:text="@string/kg"
+            android:textColor="@color/colorBlack" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tv_capacity_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="@string/tv_capacity_unit"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/colorBlack" />
+
+    <RadioGroup
+        android:id="@+id/rg_capacity_unit"
+        android:layout_width="wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/oz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:buttonTint="@color/compound_button_color"
+            android:text="@string/oz"
+            android:textColor="@color/colorBlack" />
+
+        <RadioButton
+            android:id="@+id/ml"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:buttonTint="@color/compound_button_color"
+            android:text="@string/ml"
+            android:textColor="@color/colorBlack" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/ok"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:gravity="end"
+        android:background="@drawable/button_ripple"
+        android:text="@string/ok"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/colorPrimary" />
+
+</LinearLayout>
