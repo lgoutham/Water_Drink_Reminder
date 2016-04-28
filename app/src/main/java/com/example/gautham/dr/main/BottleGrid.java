@@ -36,10 +36,10 @@ import java.util.TimeZone;
 public class BottleGrid extends Fragment {
 
     String time, date;
-    int pos;
-    String[] bposition;
+    static int pos;
+    static String[] bposition;
     private GridView gridView;
-    GridViewAdapter gridViewAdapter;
+    GridviewCustomAdapter gridviewCustomAdapter;
     Uri uri = WaterDbProvider.CONTENT_URI;
 
     @Nullable
@@ -51,18 +51,20 @@ public class BottleGrid extends Fragment {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
         time = sdf.format(c.getTime());
         date = df.format(c.getTime());
 
         String[] projection = {WaterDatabase.KEY_ID, WaterDatabase.KEY_POS, WaterDatabase.KEY_DATE, WaterDatabase.KEY_TIME};
         String selection = WaterDatabase.KEY_DATE + "=?";
-        String[] selectionArgs = {date};
-        Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+        String[] selectionArgs = {""};
+        selectionArgs[0]=date;
+        Cursor cursor = getActivity().getContentResolver().query(uri, projection, selection, selectionArgs, null);
 
-        gridViewAdapter = new GridViewAdapter(getActivity(), cursor);
-        gridViewAdapter.notifyDataSetChanged();
-        gridView.setAdapter(gridViewAdapter);
+        String[] from = { WaterDatabase.KEY_TIME};
+        int[] to = { R.id.bottle_time};
+        gridviewCustomAdapter = new GridviewCustomAdapter(getActivity(), R.layout.custom_grid_view, cursor, from, to, 0);
+        gridviewCustomAdapter.notifyDataSetChanged();
+        gridView.setAdapter(gridviewCustomAdapter);
         gridView.invalidateViews();
         gridView.setSelection(gridView.getAdapter().getCount() - 1);
 
@@ -87,69 +89,7 @@ public class BottleGrid extends Fragment {
         return view;
     }
 
-    private class GridViewAdapter extends BaseAdapter {
-
-        Context context;
-        int count;
-        Cursor c;
-        String[] gotdate;
-        String[] gotime;
-
-        public GridViewAdapter(Context context, Cursor cursor) {
-            this.context = context;
-            this.c = cursor;
-            if (c.getCount() > 0) {
-                count = c.getCount();
-                bposition = new String[count + 1];
-                gotdate = new String[count + 1];
-                gotime = new String[count + 1];
-                c.moveToFirst();
-                int i = 0;
-                while (!c.isAfterLast()) {
-                    bposition[i] = c.getString(c.getColumnIndex(WaterDatabase.KEY_POS));
-                    gotdate[i] = c.getString(c.getColumnIndex(WaterDatabase.KEY_DATE));
-                    gotime[i] = c.getString(c.getColumnIndex(WaterDatabase.KEY_TIME));
-                    i++;
-                    c.moveToNext();
-                }
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return count;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return WaterBottlesData.getData().get(Integer.parseInt(bposition[position]));
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View row = null;
-            if (convertView == null) {
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                row = inflater.inflate(R.layout.custom_grid_view, parent, false);
-            } else {
-                row = convertView;
-            }
-            TextView tvQuantity = (TextView) row.findViewById(R.id.bottle_quantity);
-            ImageView bottle = (ImageView) row.findViewById(R.id.bottle);
-            TextView tvTime = (TextView) row.findViewById(R.id.bottle_time);
-            bottle.setImageResource(WaterBottlesData.getData().get(Integer.parseInt(bposition[position])).imageId);
-            tvQuantity.setText(WaterBottlesData.getData().get(Integer.parseInt(bposition[position])).title + "ml");
-            tvTime.setText(gotime[position]);
-            return row;
-        }
-    }
-
-    public class Bottle extends DialogFragment implements View.OnClickListener {
+    public static class Bottle extends DialogFragment implements View.OnClickListener {
 
         Button cancel, delete, ok;
 

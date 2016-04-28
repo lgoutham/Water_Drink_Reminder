@@ -10,8 +10,11 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.text.TextUtils;
 
-import static com.example.gautham.dr.database.WaterDatabase.TABLE_NAME;
+import java.util.HashMap;
+
+import static com.example.gautham.dr.database.WaterDatabase.WATER_TABLE;
 import static com.example.gautham.dr.database.WaterDatabase.WEIGHT_TABLE;
 
 /**
@@ -23,23 +26,30 @@ public class WaterDbProvider extends ContentProvider {
     SQLiteDatabase sqLiteDatabase;
     WaterDatabase waterDatabase;
 
+    private static HashMap<String, String> WaterMap;
+//    private static HashMap<String, String> WeightMap;
+
     public static final String PROVIDER_NAME = "com.example.gautham.dr.database.WaterProvider";
 
     public static final String URL = "content://" + PROVIDER_NAME + "/WaterTable";
-    public static final String URL_WEIGHT = "content://" + PROVIDER_NAME + "/WeightTable";
+//    public static final String URL_WEIGHT = "content://" + PROVIDER_NAME + "/WeightTable";
 
     public static final Uri CONTENT_URI = Uri.parse(URL);
-    public static final Uri CONTENT_WEIGHT_URI = Uri.parse(URL_WEIGHT);
+//    public static final Uri CONTENT_WEIGHT_URI = Uri.parse(URL_WEIGHT);
 
     private static final int Water = 1;
-    private static final int Weight = 10;
+    private static final int Water_Id = 2;
+//    private static final int Weight = 3;
+//    private static final int Weight_Id = 4;
 
     private static final UriMatcher uriMatcher;
 
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(PROVIDER_NAME, "WaterTable", Water);
-        uriMatcher.addURI(PROVIDER_NAME, "WeightTable", Weight);
+        uriMatcher.addURI(PROVIDER_NAME, "WaterTable/#", Water);
+//        uriMatcher.addURI(PROVIDER_NAME, "WeightTable", Weight);
+//        uriMatcher.addURI(PROVIDER_NAME, "WeightTable/#", Weight);
     }
 
     public WaterDbProvider() {
@@ -62,17 +72,29 @@ public class WaterDbProvider extends ContentProvider {
 
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         int uriType = uriMatcher.match(uri);
+        qb.setTables(WATER_TABLE);
+//        qb.setTables(WEIGHT_TABLE);
         switch (uriType) {
             case Water:
-                qb.setTables(TABLE_NAME);
+                qb.setProjectionMap(WaterMap);
                 break;
-            case Weight:
-                qb.setTables(WEIGHT_TABLE);
+            case Water_Id:
+                qb.appendWhere(WaterDatabase.KEY_ID + "=" + uri.getLastPathSegment());
                 break;
+           /* case Weight:
+                qb.setProjectionMap(WeightMap);
+                break;
+            case Weight_Id:
+                qb.appendWhere(WaterDatabase.KEY_ID + "=" + uri.getLastPathSegment());
+                break;*/
             default:
                 throw new IllegalArgumentException("Invalid URI: " + uri);
         }
-        Cursor cursor = qb.query(sqLiteDatabase, projection, selection, selectionArgs, null, null, null);
+        if (sortOrder == null || sortOrder == "") {
+            // No sorting-> sort on names by default
+            sortOrder = WaterDatabase.KEY_ID;
+        }
+        Cursor cursor = qb.query(sqLiteDatabase, projection, selection, selectionArgs, null, null, sortOrder);
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
     }
@@ -83,8 +105,8 @@ public class WaterDbProvider extends ContentProvider {
         switch (uriMatcher.match(uri)) {
             case Water:
                 return "vnd.android.cursor.dir/WaterTable";
-            case Weight:
-                return "vnd.android.cursor.dir/WeightTable";
+            case Water_Id:
+                return "vnd.android.cursor.item/WeightTable/#";
             default:
                 throw new IllegalArgumentException("Invalid URI: " + uri);
         }
@@ -96,21 +118,21 @@ public class WaterDbProvider extends ContentProvider {
         Uri _uri = null;
         switch (uriType) {
             case Water:
-                long rowID = sqLiteDatabase.insert(TABLE_NAME, null, values);
+                long rowID = sqLiteDatabase.insert(WATER_TABLE, null, values);
                 if (rowID > 0) {
                     _uri = ContentUris.withAppendedId(CONTENT_URI, rowID);
                     getContext().getContentResolver().notifyChange(_uri, null);
                 }
                 break;
-            case Weight:
+            /*case Weight:
                 long rowID1 = sqLiteDatabase.insert(WEIGHT_TABLE, null, values);
                 if (rowID1 > 0) {
                     _uri = ContentUris.withAppendedId(CONTENT_WEIGHT_URI, rowID1);
                     getContext().getContentResolver().notifyChange(_uri, null);
                 }
-                break;
+                break;*/
             default:
-                throw new SQLException("Error inserting into table: " + TABLE_NAME);
+                throw new SQLException("Error inserting into table: " + WATER_TABLE);
         }
         return _uri;
     }
@@ -120,10 +142,13 @@ public class WaterDbProvider extends ContentProvider {
         int count = 0;
         switch (uriMatcher.match(uri)) {
             case Water:
-                count = sqLiteDatabase.delete(TABLE_NAME, selection, selectionArgs);
+                count = sqLiteDatabase.delete(WATER_TABLE, selection, selectionArgs);
                 break;
-            case Weight:
-                count = sqLiteDatabase.delete(WEIGHT_TABLE, selection, selectionArgs);
+            case Water_Id:
+                String id = uri.getLastPathSegment();    //gets the id
+                count = sqLiteDatabase.delete(WATER_TABLE, WaterDatabase.KEY_ID + " = " + id +
+                        (!TextUtils.isEmpty(selection) ? " AND (" +
+                                selection + ')' : ""), selectionArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
@@ -137,10 +162,13 @@ public class WaterDbProvider extends ContentProvider {
         int count = 0;
         switch (uriMatcher.match(uri)) {
             case Water:
-                count = sqLiteDatabase.update(TABLE_NAME, values, selection, selectionArgs);
+                count = sqLiteDatabase.update(WATER_TABLE, values, selection, selectionArgs);
                 break;
-            case Weight:
-                count = sqLiteDatabase.update(WEIGHT_TABLE, values, selection, selectionArgs);
+            case Water_Id:
+                count = sqLiteDatabase.update(WATER_TABLE, values, WaterDatabase.KEY_ID +
+                        " = " + uri.getLastPathSegment() +
+                        (!TextUtils.isEmpty(selection) ? " AND (" +
+                                selection + ')' : ""), selectionArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);

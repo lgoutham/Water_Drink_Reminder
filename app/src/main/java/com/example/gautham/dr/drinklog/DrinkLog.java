@@ -26,7 +26,6 @@ import java.util.ArrayList;
 public class DrinkLog extends Fragment {
 
     ListView recyclerView;
-//    OneDayLogAdapter oneDayLogAdapter;
     CustomAdapter customAdapter;
     Cursor drink_log_cursor;
 
@@ -34,19 +33,17 @@ public class DrinkLog extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        drink_log_cursor = getActivity().getContentResolver().query(WaterDbProvider.CONTENT_URI, null, null, null, null);
-//        oneDayLogAdapter = new OneDayLogAdapter(getActivity(), drink_log_cursor);
-        String[] from={WaterDatabase.KEY_POS,WaterDatabase.KEY_TIME,WaterDatabase.KEY_DATE};
-        int[] to={R.id.one_day_log_bottle_size,R.id.one_day_log_bottle_time,R.id.one_day_log_bottle_date};
-        customAdapter=new CustomAdapter(getActivity(),R.layout.one_day_drink_log,drink_log_cursor,from,to,0);
         View view = inflater.inflate(R.layout.drink_log, container, false);
+        drink_log_cursor = getActivity().getContentResolver().query(WaterDbProvider.CONTENT_URI, null, null, null, null);
+        String[] from = {WaterDatabase.KEY_POS, WaterDatabase.KEY_TIME, WaterDatabase.KEY_DATE};
+        int[] to = {R.id.one_day_log_bottle_size, R.id.one_day_log_bottle_time, R.id.one_day_log_bottle_date};
+        customAdapter = new CustomAdapter(getActivity(), R.layout.one_day_drink_log, drink_log_cursor, from, to, 0);
 
         AdView mAdView = (AdView) view.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
         recyclerView = (ListView) view.findViewById(R.id.drink_log_view);
-//        recyclerView.setAdapter(oneDayLogAdapter);
         recyclerView.setAdapter(customAdapter);
         return view;
     }

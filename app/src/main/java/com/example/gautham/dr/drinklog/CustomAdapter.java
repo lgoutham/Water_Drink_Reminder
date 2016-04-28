@@ -74,8 +74,8 @@ class CustomAdapter extends SimpleCursorAdapter {
         if (task_day.equals(prevDate)) {
             holder.sec_hdr.setVisibility(View.GONE);
             holder.sec_total.setVisibility(View.GONE);
-            sec_total = 0;
             sec_total = getSectionTotal(priority);
+            sec_total = 0;
         } else {
             holder.sec_hdr.setText(task_day);
             holder.sec_total.setText(String.valueOf(sec_total) + "ml");

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.preference.PreferenceActivity;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +33,7 @@ import com.example.gautham.dr.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Reminder extends AppCompatActivity implements OnClickListener {
@@ -43,6 +45,9 @@ public class Reminder extends AppCompatActivity implements OnClickListener {
     LinearLayout otherSettingsLayout, customizeSoundLayout;
     RelativeLayout auto, manual;
 
+    static String radioButtonState = "RADIO_BUTTON_STATE";
+    boolean result;
+
     private Toolbar toolbar;
 
     @Override
@@ -50,6 +55,11 @@ public class Reminder extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reminder);
 
+        if (savedInstanceState != null) {
+            result = savedInstanceState.getBoolean(radioButtonState);
+            auto_radio.setChecked(result);
+            manual_radio.setChecked(!result);
+        }
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -105,6 +115,7 @@ public class Reminder extends AppCompatActivity implements OnClickListener {
                     manual_btn.setVisibility(View.INVISIBLE);
                 }
                 auto_radio.setChecked(true);
+                result = true;
                 auto_btn.setVisibility(View.VISIBLE);
 
                 startNotifications();
@@ -136,30 +147,37 @@ public class Reminder extends AppCompatActivity implements OnClickListener {
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
+        outState.putBoolean(radioButtonState, result);
     }
 
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onRestoreInstanceState(savedInstanceState, persistentState);
+        result = savedInstanceState.getBoolean(radioButtonState);
     }
 
     private void startNotifications() {
 
         AlarmManager alarmMgr;
         PendingIntent alarmIntent;
-        final int  NOTIFICATION_ID = 1;
+        final int NOTIFICATION_ID = 1;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        String time = sdf.format(c.getTime());
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        // Set the alarm's trigger time to 8:30 a.m.
+        // Set the alarm's trigger time to 8:00 a.m.
         calendar.set(Calendar.HOUR_OF_DAY, 8);
 
         alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(Reminder.this, AlarmReceiver.class);
-        intent.putExtra("notificationId",NOTIFICATION_ID);
+        intent.putExtra("notificationId", NOTIFICATION_ID);
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
         alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_HOUR, alarmIntent);
+        if (time.equals("20:00"))
+            alarmMgr.cancel(alarmIntent);
 
     }
 

@@ -22,6 +22,7 @@ public class MyAlarmService extends Service {
     static NotificationCompat.Builder mNotifyBuilder;
     NotificationManager mNotificationManager;
     Uri alarmSound;
+    int counter;
 
     @Override
     public IBinder onBind(Intent arg0) {
@@ -52,7 +53,7 @@ public class MyAlarmService extends Service {
                 .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
                 .setSound(alarmSound)
                 .setSmallIcon(R.drawable.notify_drink)
-        ;
+                .setNumber(++counter);
 
         int notificationId = resultIntent.getIntExtra("notificationId", 0);
 
