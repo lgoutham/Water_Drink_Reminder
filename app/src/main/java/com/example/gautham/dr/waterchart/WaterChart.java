@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -17,10 +18,17 @@ import com.example.gautham.dr.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by GAUTHAM on 4/7/2016.
  */
 public class WaterChart extends Fragment {
+
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,38 +38,48 @@ public class WaterChart extends Fragment {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
-        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
-        tabLayout.addTab(tabLayout.newTab().setText("WEEK"));
-        tabLayout.addTab(tabLayout.newTab().setText("MONTH"));
-        tabLayout.addTab(tabLayout.newTab().setText("YEAR"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        TabLayout.Tab tab = tabLayout.getTabAt(1);
-        tab.select();
+        viewPager = (ViewPager) view.findViewById(R.id.pager);
+        setupViewPager(viewPager);
 
-
-        FragmentManager fragmentManager = getFragmentManager();
-
-
-        PagerAdapter adapter = new TabsAdapter(fragmentManager, tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(viewPager);
         return view;
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
+        adapter.addFragment(new WeekFragment(), "WEEK");
+        adapter.addFragment(new MonthFragment(), "MONTH");
+        adapter.addFragment(new YearFragment(), "YEAR");
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 }

@@ -8,5 +8,6 @@
     <ListView
         android:id="@+id/customize_sound_list"
         android:layout_width="match_parent"
+        android:clickable="true"
         android:layout_height="wrap_content"></ListView>
 </LinearLayout>

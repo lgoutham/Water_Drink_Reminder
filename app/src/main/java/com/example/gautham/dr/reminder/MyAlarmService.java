@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.IBinder;
@@ -19,8 +20,10 @@ import com.example.gautham.dr.main.MainActivity;
  */
 public class MyAlarmService extends Service {
 
-    static NotificationCompat.Builder mNotifyBuilder;
+    NotificationCompat.Builder mNotifyBuilder;
     NotificationManager mNotificationManager;
+    SharedPreferences got_notification;
+    int position;
     Uri alarmSound;
     int counter;
 
@@ -34,6 +37,8 @@ public class MyAlarmService extends Service {
     public void onCreate() {
         // TODO Auto-generated method stub
         super.onCreate();
+        got_notification = getSharedPreferences(CustomizeSound.reminder, Context.MODE_PRIVATE);
+        position = got_notification.getInt(CustomizeSound.whichPosition, 0);
     }
 
     @SuppressWarnings("static-access")
@@ -45,7 +50,21 @@ public class MyAlarmService extends Service {
                 resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        alarmSound=RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        switch (position) {
+            case 0:
+                alarmSound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.water);
+                break;
+            case 1:
+                alarmSound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.water_cut);
+                break;
+            case 2:
+                alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                break;
+            default:
+                break;
+        }
+
         mNotifyBuilder = new NotificationCompat.Builder(this)
                 .setTicker("Drink Water Reminder")
                 .setContentTitle("Drink Water Reminder")

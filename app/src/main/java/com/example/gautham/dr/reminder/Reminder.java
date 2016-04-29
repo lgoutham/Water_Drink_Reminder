@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.preference.PreferenceActivity;
@@ -45,7 +46,12 @@ public class Reminder extends AppCompatActivity implements OnClickListener {
     LinearLayout otherSettingsLayout, customizeSoundLayout;
     RelativeLayout auto, manual;
 
-    static String radioButtonState = "RADIO_BUTTON_STATE";
+    String whichRadio = "WHICHRADIO";
+    public static String radio = "radio_state";
+    SharedPreferences sharedData_Radio;
+    SharedPreferences.Editor editor;
+
+    String radioButtonState = "RADIO_BUTTON_STATE";
     boolean result;
 
     private Toolbar toolbar;
@@ -55,14 +61,12 @@ public class Reminder extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reminder);
 
-        if (savedInstanceState != null) {
-            result = savedInstanceState.getBoolean(radioButtonState);
-            auto_radio.setChecked(result);
-            manual_radio.setChecked(!result);
-        }
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        sharedData_Radio = this.getSharedPreferences(radio, Context.MODE_PRIVATE);
+        editor = sharedData_Radio.edit();
 
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -82,6 +86,21 @@ public class Reminder extends AppCompatActivity implements OnClickListener {
         manual = (RelativeLayout) findViewById(R.id.manual_reminder_layout);
         otherSettingsLayout = (LinearLayout) findViewById(R.id.other_settings_layout);
         customizeSoundLayout = (LinearLayout) findViewById(R.id.customize_sound_layout);
+
+        result = sharedData_Radio.getBoolean(whichRadio, false);
+        if (result) {
+            auto_radio.setChecked(result);
+            auto_btn.setVisibility(View.VISIBLE);
+            startNotifications();
+        } else {
+            manual_radio.setChecked(!result);
+            manual_btn.setVisibility(View.VISIBLE);
+        }
+        if (savedInstanceState != null) {
+            result = savedInstanceState.getBoolean(radioButtonState);
+            auto_radio.setChecked(result);
+            manual_radio.setChecked(!result);
+        }
 
         mode1.setOnClickListener(this);
         mode2.setOnClickListener(this);
@@ -117,7 +136,8 @@ public class Reminder extends AppCompatActivity implements OnClickListener {
                 auto_radio.setChecked(true);
                 result = true;
                 auto_btn.setVisibility(View.VISIBLE);
-
+                editor.putBoolean(whichRadio, auto_radio.isChecked());
+                editor.apply();
                 startNotifications();
                 auto_btn.setOnClickListener(new OnClickListener() {
                     @Override
@@ -210,6 +230,8 @@ public class Reminder extends AppCompatActivity implements OnClickListener {
                     }
                     manual_radio.setChecked(true);
                     manual_btn.setVisibility(View.VISIBLE);
+                    editor.putBoolean(whichRadio, auto_radio.isChecked());
+                    editor.commit();
                     manual_btn.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {

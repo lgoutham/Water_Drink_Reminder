@@ -58,6 +58,7 @@ public class SelectGlass extends DialogFragment {
         return view;
     }
 
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         dialog = super.onCreateDialog(savedInstanceState);
