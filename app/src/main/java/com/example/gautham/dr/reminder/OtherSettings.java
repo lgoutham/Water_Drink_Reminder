@@ -2,6 +2,7 @@ package com.example.gautham.dr.reminder;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
@@ -31,6 +32,11 @@ public class OtherSettings extends AppCompatActivity {
     ListView listView;
     String[] motherSettingsTitles;
     OtherSettingsAdapter otherSettingsAdapter;
+    public static String other_settings = "OTHER_SETTINGS";
+    public static String vibration = "vibration";
+    public static String pos = "POSITION";
+    SharedPreferences otherSettings;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,9 @@ public class OtherSettings extends AppCompatActivity {
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        otherSettings = this.getSharedPreferences(other_settings, Context.MODE_PRIVATE);
+        editor = otherSettings.edit();
 
         listView = (ListView) findViewById(R.id.other_settings_list);
         setSupportActionBar(toolbar);

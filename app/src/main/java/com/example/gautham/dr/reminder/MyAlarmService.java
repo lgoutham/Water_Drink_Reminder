@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.IBinder;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
@@ -26,6 +27,7 @@ public class MyAlarmService extends Service {
     int position;
     Uri alarmSound;
     int counter;
+    Vibrator vibrator;
 
     @Override
     public IBinder onBind(Intent arg0) {
